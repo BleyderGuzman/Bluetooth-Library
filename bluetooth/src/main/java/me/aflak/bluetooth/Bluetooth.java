@@ -219,7 +219,7 @@ public class Bluetooth {
         send(msg, null);
     }
     
-    public void sendRaw(String msg){
+    public void sendRaw(Int msg){
          try {
            out.write(msg);
         } catch (final IOException e) {
