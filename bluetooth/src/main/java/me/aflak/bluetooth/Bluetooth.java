@@ -218,6 +218,22 @@ public class Bluetooth {
     public void send(String msg){
         send(msg, null);
     }
+    
+    public void sendRaw(String msg){
+         try {
+           out.write(msg);
+        } catch (final IOException e) {
+            connected=false;
+            if(deviceCallback !=null){
+                ThreadHelper.run(runOnUi, activity, new Runnable() {
+                    @Override
+                    public void run() {
+                        deviceCallback.onDeviceDisconnected(device, e.getMessage());
+                    }
+                });
+            }
+        }
+    }
 
     public List<BluetoothDevice> getPairedDevices(){
         return new ArrayList<>(bluetoothAdapter.getBondedDevices());
